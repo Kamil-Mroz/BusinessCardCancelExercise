@@ -7,27 +7,43 @@ import { ManageInterestsComponent } from '../manage-interests/manage-interests.c
 @Component({
   selector: 'app-business-card',
   standalone: true,
-  imports: [FormsModule,ShowDateComponent,CommonModule, ManageInterestsComponent],
+  imports: [
+    FormsModule,
+    ShowDateComponent,
+    CommonModule,
+    ManageInterestsComponent,
+  ],
   templateUrl: './business-card.component.html',
-  styleUrl: './business-card.component.css'
+  styleUrl: './business-card.component.css',
 })
 export class BusinessCardComponent {
   name: string;
   surname: string;
   dateOfBirth: Date;
   interests: string[];
-  selected:number=-1;
+  selected: number = -1;
+  tempInterest: string;
 
-  constructor() { 
-    this.name = 'Joanna';
-    this.surname = 'Krupa';
-    this.dateOfBirth = new Date('2000-03-18');
-    this.interests = ['tennis', 'programming', 'photography'];
+  constructor() {
+    this.name = 'Kamil';
+    this.surname = 'Mróz';
+    this.dateOfBirth = new Date('2000-01-01');
+    this.interests = ['video games', 'e-sport', 'music'];
+    this.tempInterest = '';
   }
 
-  selectInterest(which:number):void{
-      this.selected=which;
+  selectInterest(which: number): void {
+    this.selected = which;
+    this.tempInterest = this.interests[which];
   }
 
-  
+  save() {
+    this.tempInterest = '';
+    this.selected = -1;
+  }
+
+  cancel() {
+    this.interests[this.selected] = this.tempInterest;
+    this.selected = -1;
+  }
 }
